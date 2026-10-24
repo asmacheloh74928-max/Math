@@ -2,31 +2,31 @@ import streamlit as st
 
 # ตั้งค่าหน้าเว็บ
 st.set_page_config(
-    page_title="Logic Learning Sandbox - ตรรกศาสตร์เชิงคณิตศาสตร์",
-    page_icon="🧮",
+    page_title="Logic Learning Hub - ตรรกศาสตร์เชิงคณิตศาสตร์",
+    page_icon="🧠",
     layout="wide",
 )
 
-# ตกแต่ง CSS เพิ่มเติมให้หน้าเว็บดูสวยงามและน่าเรียนยิ่งขึ้น
+# ตกแต่ง CSS ให้ UI สวยงามสะอาดตาแบบโมเดิร์น
 st.markdown(
     """
     <style>
-    .main-header {
-        font-size: 2.2rem;
+    .main-title {
+        font-size: 1.8rem;
         color: #2c3e50;
         font-weight: 700;
-        margin-bottom: 0px;
-    }
-    .sub-header {
-        font-size: 1.1rem;
-        color: #7f8c8d;
-        margin-bottom: 20px;
+        background: #ffffff;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border-left: 5px solid #e83e8c;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
     .card {
-        background-color: #f8f9fa;
+        background-color: #ffffff;
         padding: 20px;
         border-radius: 10px;
-        border-left: 5px solid #4f46e5;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         margin-bottom: 15px;
     }
     </style>
@@ -34,309 +34,288 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# --- ส่วนหัวของเว็บแอป (Header Dashboard) ---
-st.markdown(
-    '<p class="main-header">🧮 Logic Learning Sandbox</p>',
-    unsafe_allow_html=True,
+# --- SIDEBAR: เมนูด้านข้างแบบแบ่งหมวดหมู่ชัดเจน ---
+st.sidebar.markdown("### 🌸 Logic Lab")
+st.sidebar.caption("ห้องเรียนตรรกศาสตร์ดิจิทัล")
+st.sidebar.markdown("---")
+st.sidebar.markdown("📌 **เมนูหลัก (MAIN MENU)**")
+
+menu = st.sidebar.radio(
+    "เลือกหัวข้อ",
+    (
+        "01. ภาพรวม & ประพจน์",
+        "02. ตัวเชื่อมตรรกศาสตร์",
+        "03. ตารางความจริง (Truth Table)",
+        "04. สูตรสมพากย์ (Equivalence)",
+        "05. สัจนิรันดร์ & การอ้างเหตุผล",
+        "06. ตัวบ่งปริมาณ (Quantifiers)",
+        "07. สรุปสูตรแผ่นเดียว (Cheat Sheet)",
+    ),
+    label_visibility="collapsed",
 )
-st.markdown(
-    '<p class="sub-header">สื่อการเรียนรู้อิเล็กทรอนิกส์เชิงโต้ตอบ วิชาตรรกศาสตร์เชิงคณิตศาสตร์ | คณะครุศาสตร์ สาขาคณิตศาสตร์</p>',
-    unsafe_allow_html=True,
+
+st.sidebar.markdown("---")
+st.sidebar.info(
+    "👩‍🏫 **ผู้จัดทำ:**\n"
+    "- นางสาวอัสมะ เจะเลาะ (6711070055)\n"
+    "- นูรูลฮูดา เปาะแต (6711070068)\n"
+    "คณะครุศาสตร์ สาขาคณิตศาสตร์ ม.ราชภัฏธนบุรี[span_2](start_span)"[span_2](end_span)
 )
 
-# --- สร้างระบบเมนูแบบแถบด้านบน (Top Tabs) ทันสมัย ไม่ซ้ำใคร ---
-tabs = st.tabs([
-    "🏠 หน้าแรก",
-    "📖 บทที่ 1: ประพจน์",
-    "🔗 บทที่ 2: ตัวเชื่อม",
-    "✨ บทที่ 3: สัจนิรันดร์",
-    "⚖️ บทที่ 4: การอ้างเหตุผล",
-    "🔍 บทที่ 5: ตัวบ่งปริมาณ",
-    "📈 บทที่ 6: การพิสูจน์",
-    "📋 สรุปสูตรด่วน",
-])
 
-# ==================== TAB 1: หน้าแรก ====================
-with tabs[0]:
-    st.markdown("### 👋 ยินดีต้อนรับสู่ห้องเรียนตรรกศาสตร์ดิจิทัล")
-    st.write(
-        "เว็บแอปพลิเคชันนี้จัดทำขึ้นเพื่อช่วยให้การเรียนรู้เรื่อง **ตรรกศาสตร์เชิงคณิตศาสตร์ (Mathematical Logic)** เป็นเรื่องง่าย สนุก และสามารถทดสอบความเข้าใจได้ทันทีผ่านระบบอินเตอร์แอคทีฟ"
-    )
-
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric(
-            label="📚 บทเรียนทั้งหมด", value="6 บทหลัก", delta="ครอบคลุมเนื้อหา"
-        )
-    with col2:
-        st.metric(
-            label="💡 รูปแบบการเรียน",
-            value="Interactive",
-            delta="กดตอบ-รู้ผลทันที",
-        )
-    with col3:
-        st.metric(
-            label="📋 คลังสูตร", value="Cheat Sheet", delta="เปิดดูขณะทำโจทย์"
-        )
-    with col4:
-        st.metric(label="🎯 กลุ่มเป้าหมาย", value="นักเรียน/นักศึกษา", delta="มัธยมปลายขึ้นไป")
-
-    st.markdown("---")
-    st.markdown("#### 🚀 คำแนะนำการใช้งาน")
-    st.info(
-        "1. เลือกหัวข้อบทเรียนจาก **แถบเมนูด้านบน** เพื่อศึกษาเนื้อหาและทำแบบฝึกหัด\n"
-        "2. หากลืมสูตรหรือสมบัติสำคัญ สามารถคลิกที่แท็บ **'📋 สรุปสูตรด่วน'** ได้ตลอดเวลา\n"
-        "3. ทุกข้อจะมีระบบตรวจคำตอบอัตโนมัติ พร้อมคำอธิบายวิธีทำอย่างละเอียด"
-    )
-
-    st.markdown("---")
-    st.caption(
-        "© จัดทำโดย: นางสาวอัสมะ เจะเลาะ และ นูรูลฮูดา เปาะแต | คณะครุศาสตร์ สาขาวิชาคณิตศาสตร์ มหาวิทยาลัยราชภัฏธนบุรี"
-    )
-
-# ==================== TAB 2: บทที่ 1 ====================
-with tabs[1]:
-    st.header("📖 บทที่ 1: บทนำ ประพจน์ และกฎการให้เหตุผลเบื้องต้น")
-    st.markdown("---")
-
+# ==================== 01. ภาพรวม & ประพจน์ ====================
+if menu == "01. ภาพรวม & ประพจน์":
     st.markdown(
-        """
-    <div class="card">
-    <h4>💡 แนวคิดหลัก (Core Concepts)</h4>
-    <p><b>ประพจน์ (Proposition)</b> คือ ประโยคบอกเล่าหรือปฏิเสธที่มีค่าความจริงเป็นจริง (True: T) หรือเท็จ (False: F) อย่างใดอย่างหนึ่งเท่านั้น ประโยคคำถาม คำสั่ง หรืออุทาน จะไม่ถือว่าเป็นประพจน์</p>
-    </div>
-    """,
+        '<p class="main-title">📌 01. ภาพรวมและประพจน์ (Introduction & Propositions)</p>',
         unsafe_allow_html=True,
     )
+    st.markdown("<br>", unsafe_allow_html=True)
 
-    st.subheader("กฎการอ้างเหตุผลเบื้องต้น (Modus Ponens)")
-    st.latex(r"p \rightarrow q, \quad p \quad \vdash \quad q")
-    st.write(
-        "หากเหตุการณ์ $p$ นำไปสู่ $q$ และเราทราบแน่ชัดว่า $p$ เป็นจริง เราจึงสามารถสรุปได้อย่างสมเหตุสมผลว่า $q$ เป็นจริง"
+    col1, col2 = st.columns([1.2, 1])
+
+    with col1:
+        st.markdown(
+            """
+        <div class="card">
+        <h4>💡 ประพจน์คืออะไร?</h4>
+        <p><b>ประพจน์ (Proposition หรือ Statement)</b> คือ ประโยคบอกเล่าหรือปฏิเสธที่มีค่าความจริง (Truth Value) เป็น <b>จริง (T)</b> หรือ <b>เท็จ (F)</b> อย่างใดอย่างหนึ่งเท่านั้น[span_3](start_span)[span_3](end_span)</p>
+        <hr>
+        <p><b>ประโยคที่เป็นประพจน์:</b><br>
+        • "เมื่อวานฝนตกที่บางกะปิ" (เป็นประพจน์ เพราะตรวจสอบความจริงได้)[span_4](start_span)[span_4](end_span)<br>
+        • "1 มากกว่า 2" (เป็นประพจน์ มีค่าความจริงเป็น F)[span_5](start_span)[span_5](end_span)</p>
+        <p><b>ประโยคที่ไม่เป็นประพจน์:</b><br>
+        ประโยคคำถาม คำสั่ง ขอร้อง แสดงความปรารถนา หรืออุทาน เช่น <i>"กรุณางดส่งเสียงดัง"</i> หรือ <i>"ใครทำแก้วแตก?"</i>[span_6](start_span)[span_6](end_span)</p>
+        </div>
+        """,
+            unsafe_allow_html=True,
+        )
+
+    with col2:
+        st.markdown(
+            """
+        <div class="card">
+        <h4>🎯 แบบฝึกหัดทดสอบความเข้าใจ</h4>
+        <p>ประโยคในข้อใดต่อไปนี้ <b>เป็นประพจน์</b>?</p>
+        </div>
+        """,
+            unsafe_allow_html=True,
+        )
+
+        ans_p1 = st.radio(
+            "เลือกคำตอบ:",
+            (
+                "เลือกคำตอบ...",
+                "ก. ห้ามเดินลัดสนามหญ้า",
+                "ข. 5 + 7 = 12",
+                "ค. คุณกำลังทำอะไรอยู่?",
+            ),
+            key="p1_quiz",
+        )
+
+        if ans_p1 != "เลือกคำตอบ...":
+            if "ข. 5 + 7 = 12" in ans_p1:
+                st.success(
+                    "🎉 ถูกต้อง! '5 + 7 = 12' เป็นประโยคบอกเล่าที่มีค่าความจริงชัดเจน (เท็จ) จึงถือเป็นประพจน์"
+                )
+            else:
+                st.error(
+                    "❌ ยังไม่ถูกต้อง ประโยคคำสั่งและคำถามไม่ถือเป็นประพจน์ ลองใหม่อีกครั้งนะ"
+                )
+
+
+# ==================== 02. ตัวเชื่อมตรรกศาสตร์ ====================
+elif menu == "02. ตัวเชื่อมตรรกศาสตร์":
+    st.markdown(
+        '<p class="main-title">🔗 02. ตัวเชื่อมทางตรรกศาสตร์ (Logical Connectives)</p>',
+        unsafe_allow_html=True,
     )
-
-    st.markdown("---")
-    st.subheader("📝 แบบฝึกหัดทดสอบความเข้าใจ")
-    q1 = st.radio(
-        "ข้อที่ 1: ประโยคในข้อใดต่อไปนี้ 'เป็นประพจน์'",
-        (
-            "เลือกคำตอบ...",
-            "ก. ห้ามส่งเสียงดังในห้องสมุด",
-            "ข. 2 + 3 = 6",
-            "ค. คุณกำลังทำอะไรอยู่?",
-            "ง. Ouch! เจ็บจัง",
-        ),
-        key="b1_q1",
-    )
-
-    if q1 != "เลือกคำตอบ...":
-        if "ข. 2 + 3 = 6" in q1:
-            st.success(
-                "🎉 ถูกต้องนะคร้าบ/ค่ะ! '2 + 3 = 6' เป็นประโยคบอกเล่าที่มีค่าความจริงเป็นเท็จ (F) จึงถือเป็นประพจน์"
-            )
-        else:
-            st.error(
-                "❌ ยังไม่ถูกต้องครับ/ค่ะ ประโยคคำสั่ง คำถาม และอุทาน ไม่ถือเป็นประพจน์ ลองใหม่อีกครั้งนะ!"
-            )
-
-# ==================== TAB 3: บทที่ 2 ====================
-with tabs[2]:
-    st.header("🔗 บทที่ 2: ตัวเชื่อมทางตรรกศาสตร์และตารางค่าความจริง")
-    st.markdown("---")
+    st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown(
         """
     <div class="card">
-    <h4>📌 สรุปตัวเชื่อมสำคัญ</h4>
+    <h4>📌 5 ตัวเชื่อมพื้นฐานและกฎการให้ค่าความจริง</h4>
     <ul>
-        <li><b>นิเสธ ($\neg p$):</b> กลับค่าความจริงตรงกันข้าม</li>
-        <li><b>และ ($p \wedge q$):</b> เป็นจริงเฉพาะกรณีที่เป็นจริงทั้งคู่</li>
-        <li><b>หรือ ($p \vee q$):</b> เป็นเท็จเฉพาะกรณีที่เป็นเท็จทั้งคู่</li>
-        <li><b>ถ้า...แล้ว ($p \rightarrow q$):</b> เป็นเท็จกรณีเดียวคือ จริง $\rightarrow$ เท็จ</li>
-        <li><b>ก็ต่อเมื่อ ($p \leftrightarrow q$):</b> เป็นจริงเมื่อมีค่าความจริงเหมือนกัน</li>
+        <li><b>นิเสธ ($\sim P$):</b> กลับค่าความจริงตรงกันข้าม[span_7](start_span)[span_7](end_span)</li>
+        <li><b>และ ($P \wedge Q$):</b> เป็นจริงเฉพาะกรณีที่เป็นจริงทั้งคู่ นอกนั้นเป็นเท็จ[span_8](start_span)[span_8](end_span)</li>
+        <li><b>หรือ ($P \vee Q$):</b> เป็นเท็จเฉพาะกรณีที่เป็นเท็จทั้งคู่ นอกนั้นเป็นจริง[span_9](start_span)[span_9](end_span)</li>
+        <li><b>ถ้า...แล้ว ($P \rightarrow Q$):</b> เป็นเท็จกรณีเดียวคือ เมื่อ $T \rightarrow F$ นอกนั้นเป็นจริง[span_10](start_span)[span_10](end_span)</li>
+        <li><b>ก็ต่อเมื่อ ($P \leftrightarrow Q$):</b> เป็นจริงเมื่อประพจน์ทั้งสองมีค่าความจริงเหมือนกัน[span_11](start_span)[span_11](end_span)</li>
     </ul>
     </div>
     """,
         unsafe_allow_html=True,
     )
 
-    st.subheader("กฎสมมูลที่สำคัญ (Useful Identities)")
-    st.latex(r"p \rightarrow q \equiv \neg p \vee q")
-    st.latex(r"\neg(p \wedge q) \equiv \neg p \vee \neg q \quad (\text{กฎของเดอมอร์แกน})")
-
-    st.markdown("---")
-    st.subheader("📝 แบบฝึกหัดทดสอบความเข้าใจ")
-    q2 = st.radio(
-        "ข้อที่ 1: ประพจน์ $p \rightarrow q$ สมมูลกับข้อใดมากที่สุด?",
-        (
-            "เลือกคำตอบ...",
-            "$\\neg p \\vee q$",
-            "$p \\wedge \\neg q$",
-            "$\\neg p \\wedge \\neg q$",
-            "$q \\rightarrow p$",
-        ),
-        key="b2_q1",
+    st.subheader("📝 ทดสอบความเข้าใจตัวเชื่อม")
+    c_quiz = st.radio(
+        "กำหนดให้ $P \equiv T$ และ $Q \equiv F$ จงหาค่าความจริงของ $P \rightarrow Q$",
+        ("เลือกคำตอบ...", "True (T)", "False (F)"),
+        key="conn_quiz",
     )
-
-    if q2 != "เลือกคำตอบ...":
-        if "$\\neg p \\vee q$" in q2:
+    if c_quiz != "เลือกคำตอบ...":
+        if "False" in c_quiz:
             st.success(
-                "🎉 ยอดเยี่ยม! สมบัตินี้เรียกว่าการเปลี่ยนรูปเครื่องหมายลูกศรเป็นเครื่องหมายหรือ (นิเสธหน้า หรือ หลัง)"
+                "🎉 ถูกต้อง! เพราะ $T \rightarrow F \equiv F$ เป็นกรณีเดียวที่ทำให้เงื่อนไขนี้เป็นเท็จ"
             )
         else:
             st.error(
-                "❌ ยังผิดอยู่จ้า ลองเช็คสูตรในหน้าสรุปสูตรด่วนดูอีกรอบนะ!"
+                "❌ ยังไม่ถูกต้อง จำไว้ว่า 'จริงแล้วเท็จ ได้เท็จ' ($T \rightarrow F \equiv F$)"
             )
 
-# ==================== TAB 4: บทที่ 3 ====================
-with tabs[3]:
-    st.header("✨ บทที่ 3: สัจนิรันดร์ (Tautologies)")
-    st.markdown("---")
+
+# ==================== 03. ตารางความจริง ====================
+elif menu == "03. ตารางความจริง (Truth Table)":
+    st.markdown(
+        '<p class="main-title">📊 03. ตารางความจริง (Truth Table)</p>',
+        unsafe_allow_html=True,
+    )
+    st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown(
         """
     <div class="card">
-    <h4>🔍 สัจนิรันดร์คืออะไร?</h4>
-    <p><b>สัจนิรันดร์ (Tautology)</b> คือ ประพจน์ที่มีค่าความจริงเป็น <b>จริง (T) ทุกกรณี</b> ในตารางค่าความจริง ไม่ว่าประพจน์ย่อยจะมีค่าความจริงเป็นอะไรก็ตาม</p>
+    <h4>💡 ตารางแสดงค่าความจริงของตัวเชื่อมทั้งหมด</h4>
+    <p>จำนวนแถวในตารางคำนวณจากสูตร $2^n$ เมื่อ $n$ คือจำนวนประพจน์ย่อย[span_12](start_span)[span_12](end_span)</p>
     </div>
     """,
         unsafe_allow_html=True,
     )
 
-    st.subheader("ตัวอย่างการตรวจสอบสัจนิรันดร์")
-    st.write("ต้องการตรวจสอบว่า $(p \wedge q) \rightarrow p$ เป็นสัจนิรันดร์หรือไม่?")
-    with st.expander("👉 คลิกเพื่อดูวิธีทำและเฉลี่ยอย่างละเอียด"):
-        st.write(
-            "1. สมมติให้ประพจน์หลักมีค่าเป็นเท็จ ($F$) ในกรณีที่เป็นเครื่องหมาย $\\rightarrow$\n"
-            "2. จะเกิดขึ้นได้กรณีเดียวคือ เหตุเป็นจริง ($T$) และผลเป็นเท็จ ($F$)\n"
-            "3. กำหนดให้ $p = F$ แต่จะทำให้เหตุส่วนหน้าขัดแย้งกันเอง\n"
-            "4. **สรุป:** ไม่สามารถทำให้เป็นเท็จได้ ดังนั้นประพจน์นี้จึงเป็น **สัจนิรันดร์**"
+    st.markdown(
+        """
+    | P | Q | $\sim P$ | $P \wedge Q$ | $P \vee Q$ | $P \rightarrow Q$ | $P \leftrightarrow Q$ |
+    |---|---|---------|------------|----------|-----------------|---------------------|
+    | T | T | F       | T          | T        | T               | T                   |
+    | T | F | F       | F          | T        | F               | F                   |
+    | F | T | T       | F          | T        | T               | F                   |
+    | F | F | T       | F          | F        | T               | T                   |
+    """
+    )
+
+
+# ==================== 04. สูตรสมพากย์ ====================
+elif menu == "04. สูตรสมพากย์ (Equivalence)":
+    st.markdown(
+        '<p class="main-title">🔄 04. รูปแบบประพจน์ที่สมมูลกัน (Logical Equivalences)</p>',
+        unsafe_allow_html=True,
+    )
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    st.markdown(
+        """
+    <div class="card">
+    <h4>📌 กฎสมมูลที่สำคัญ (Useful Identities)</h4>
+    <ul>
+        <li><b>Implication Law:</b> $P \rightarrow Q \equiv \sim P \vee Q$[span_13](start_span)[span_13](end_span)</li>
+        <li><b>Contrapositive:</b> $P \rightarrow Q \equiv \sim Q \rightarrow \sim P$[span_14](start_span)[span_14](end_span)</li>
+        <li><b>Biconditional:</b> $P \leftrightarrow Q \equiv (P \rightarrow Q) \wedge (Q \rightarrow P)$[span_15](start_span)[span_15](end_span)</li>
+        <li><b>De Morgan's Laws:</b> $\sim(P \wedge Q) \equiv \sim P \vee \sim Q$ และ $\sim(P \vee Q) \equiv \sim P \wedge \sim Q$[span_16](start_span)[span_16](end_span)</li>
+        <li><b>Double Negation:</b> $\sim(\sim P) \equiv P$[span_17](start_span)[span_17](end_span)</li>
+    </ul>
+    </div>
+    """,
+        unsafe_allow_html=True,
+    )
+
+
+# ==================== 05. สัจนิรันดร์ & การอ้างเหตุผล ====================
+elif menu == "05. สัจนิรันดร์ & การอ้างเหตุผล":
+    st.markdown(
+        '<p class="main-title">✨ 05. สัจนิรันดร์ (Tautology) และการอ้างเหตุผล (Arguments)</p>',
+        unsafe_allow_html=True,
+    )
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    col_a, col_b = st.columns(2)
+
+    with col_a:
+        st.markdown(
+            """
+        <div class="card">
+        <h4>🔍 สัจนิรันดร์คืออะไร?</h4>
+        <p><b>สัจนิรันดร์ (Tautology)</b> คือ ประพจน์ที่มีค่าความจริงเป็น <b>จริง (T) ทุกกรณี</b> ในตารางค่าความจริง[span_18](start_span)[span_18](end_span)</p>
+        <hr>
+        <p><b>วิธีตรวจสอบ:</b><br>
+        1. ใช้ตารางความจริง (ดูว่าคอลัมน์สุดท้ายเป็น T ทั้งหมดหรือไม่)[span_19](start_span)[span_19](end_span)<br>
+        2. วิธีหาข้อขัดแย้ง (นิยมมาก): สมมติให้ประพจน์รวมเป็น เท็จ (F) แล้วตรวจสอบว่าเกิดข้อขัดแย้งหรือไม่ ถ้าขัดแย้ง แสดงว่าเป็นสัจนิรันดร์[span_20](start_span)[span_20](end_span)</p>
+        </div>
+        """,
+            unsafe_allow_html=True,
         )
 
-    st.markdown("---")
-    st.subheader("📝 แบบฝึกหัดทดสอบความเข้าใจ")
-    q3 = st.radio(
-        "ข้อที่ 1: ประพจน์ $p \vee \neg p$ มีลักษณะเป็นอย่างไร?",
-        (
-            "เลือกคำตอบ...",
-            "เป็นสัจนิรันดร์ (Tautology)",
-            "เป็นข้อขัดแย้ง (Contradiction)",
-            "เป็นประพจน์สมมูล",
-        ),
-        key="b3_q1",
+    with col_b:
+        st.markdown(
+            """
+        <div class="card">
+        <h4>⚖️ การอ้างเหตุผล (Arguments)</h4>
+        <p>ประกอบด้วย <b>เหตุ</b> ($P_1, P_2, \dots, P_n$) และ <b>ผล</b> ($C$)[span_21](start_span)[span_21](end_span)</p>
+        <p>รูปแบบการเชื่อม: $(P_1 \wedge P_2 \wedge \dots \wedge P_n) \rightarrow C$ จะ<b>สมเหตุสมผล (Valid)</b> ก็ต่อเมื่อเป็นสัจนิรันดร์[span_22](start_span)[span_22](end_span)</p>
+        <hr>
+        <p><b>กฎการอ้างเหตุผลยอดฮิต:</b><br>
+        • <b>Modus Ponens:</b> $P \rightarrow Q, P \vdash Q$[span_23](start_span)[span_23](end_span)<br>
+        • <b>Modus Tollens:</b> $P \rightarrow Q, \sim Q \vdash \sim P$[span_24](start_span)[span_24](end_span)<br>
+        • <b>Hypothetical Syllogism:</b> $P \rightarrow Q, Q \rightarrow R \vdash P \rightarrow R$[span_25](start_span)[span_25](end_span)</p>
+        </div>
+        """,
+            unsafe_allow_html=True,
+        )
+
+
+# ==================== 06. ตัวบ่งปริมาณ ====================
+elif menu == "06. ตัวบ่งปริมาณ (Quantifiers)":
+    st.markdown(
+        '<p class="main-title">🔍 06. ประโยคเปิดและตัวบ่งปริมาณ (Open Sentences & Quantifiers)</p>',
+        unsafe_allow_html=True,
     )
-    if q3 != "เลือกคำตอบ...":
-        if "สัจนิรันดร์" in q3:
-            st.success(
-                "🎉 ถูกต้องครับ! ไม่ว่า $p$ จะเป็นจริงหรือเท็จ ผลลัพธ์ของ $p \\vee \\neg p$ จะเป็นจริงเสมอ"
-            )
-        else:
-            st.error("❌ ยังไม่ถูกต้อง ลองแทนค่า $p=T$ หรือ $p=F$ ดูนะ")
-
-# ==================== TAB 5: บทที่ 4 ====================
-with tabs[4]:
-    st.header("⚖️ บทที่ 4: การอ้างเหตุผล (Arguments)")
-    st.markdown("---")
-
-    st.write(
-        "การอ้างเหตุผลประกอบด้วย **เหตุ ($P_1, P_2, ..., P_n$)** และ **ผล ($C$)** การอ้างเหตุผลจะ **สมเหตุสมผล (Valid)** ก็ต่อเมื่อในกรณีที่เหตุทุกข้อเป็นจริงทั้งหมด ผลลัพธ์ต้องเป็นจริงตามด้วยเสมอ"
-    )
-
-    st.markdown("---")
-    st.subheader("📝 แบบฝึกหัดทดสอบความเข้าใจ")
-    q4 = st.radio(
-        "ข้อที่ 1: รูปแบบการอ้างเหตุผล $p \\rightarrow q, \\neg q \\vdash \\neg p$ มีชื่อเรียกว่าอะไร?",
-        (
-            "เลือกคำตอบ...",
-            "Modus Ponens",
-            "Modus Tollens",
-            "Hypothetical Syllogism",
-        ),
-        key="b4_q1",
-    )
-    if q4 != "เลือกคำตอบ...":
-        if "Modus Tollens" in q4:
-            st.success(
-                "🎉 ถูกต้อง! Modus Tollens คือกฎการปฏิเสธผลเพื่อย้อนกลับไปปฏิเสธเหตุ"
-            )
-        else:
-            st.error("❌ ผิดครับ คำตอบที่ถูกต้องคือ Modus Tollens")
-
-# ==================== TAB 6: บทที่ 5 ====================
-with tabs[5]:
-    st.header("🔍 บทที่ 5: ประโยคเปิดและตัวบ่งปริมาณ (Quantifiers)")
-    st.markdown("---")
+    st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown(
         """
     <div class="card">
     <h4>📌 ตัวบ่งปริมาณ (Quantifiers)</h4>
     <ul>
-        <li><b>สำหรับทุกคน ($\forall x P(x)$):</b> เป็นจริงเมื่อ $P(x)$ เป็นจริงสำหรับทุกสมาชิกในเอกภพสัมพัทธ์</li>
-        <li><b>สำหรับบางตัว ($\exists x P(x)$):</b> เป็นจริงเมื่อมีสมาชิกอย่างน้อยหนึ่งตัวที่ทำให้ $P(x)$ เป็นจริง</li>
+        <li><b>สำหรับทุกคน ($\forall x P(x)$):</b> เป็นจริงเมื่อ $P(x)$ เป็นจริงสำหรับทุกสมาชิกในเอกภพสัมพัทธ์[span_26](start_span)[span_26](end_span)</li>
+        <li><b>สำหรับบางตัว ($\exists x P(x)$):</b> เป็นจริงเมื่อมีสมาชิกอย่างน้อยหนึ่งตัวที่ทำให้ $P(x)$ เป็นจริง[span_27](start_span)[span_27](end_span)</li>
     </ul>
+    <hr>
+    <h4>🚫 กฎการนิเสธตัวบ่งปริมาณ</h4>
+    <p>• $\sim \forall x P(x) \equiv \exists x \sim P(x)$[span_28](start_span)[span_28](end_span)<br>
+       • $\sim \exists x P(x) \equiv \forall x \sim P(x)$[span_29](start_span)[span_29](end_span)</p>
     </div>
     """,
         unsafe_allow_html=True,
     )
 
-    st.subheader("กฎการเติมและกระจายนิเสธตัวบ่งปริมาณ")
-    st.latex(r"\neg \forall x P(x) \equiv \exists x \neg P(x)")
-    st.latex(r"\neg \exists x P(x) \equiv \forall x \neg P(x)")
 
-# ==================== TAB 7: บทที่ 6 ====================
-with tabs[6]:
-    st.header("📈 บทที่ 6: การอุปนัยและนิรนัย (Inductive & Deductive)")
-    st.markdown("---")
-
-    st.write(
-        "**การอุปนัยเชิงคณิตศาสตร์ (Mathematical Induction)** เป็นวิธีการพิสูจน์ข้อความสำหรับจำนวนเต็มบวก $n$ ทุกตัว โดยประกอบด้วย 2 ขั้นตอนสำคัญ:"
+# ==================== 07. สรุปสูตรแผ่นเดียว ====================
+elif menu == "07. สรุปสูตรแผ่นเดียว (Cheat Sheet)":
+    st.markdown(
+        '<p class="main-title">📋 07. สรุปสูตรแผ่นเดียว (Cheat Sheet)</p>',
+        unsafe_allow_html=True,
     )
+    st.markdown("<br>", unsafe_allow_html=True)
+
     st.markdown(
         """
-    1. **Base Case:** แสดงว่าข้อความจริงเมื่อ $n = 1$
-    2. **Inductive Step:** สมมติว่าจริงเมื่อ $n = k$ แล้วพิสูจน์ให้ได้ว่าต้องจริงสำหรับ $n = k + 1$ ด้วย
-    """
-    )
-
-# ==================== TAB 8: หน้าสรุปสูตรด่วน (Cheat Sheet) ====================
-with tabs[7]:
-    st.header("📋 หน้าสรุปสูตรและสมบัติสำคัญ (Cheat Sheet)")
-    st.subheader(
-        "💡 หน้ารวมสูตรฉบับพกพา สำหรับเปิดดูทบทวนด่วนขณะกำลังทำโจทย์ฝึกหัด"
-    )
-    st.markdown("---")
-
-    col_a, col_b = st.columns(2)
-
-    with col_a:
-        st.markdown("### 🔗 สมบัติและการสมมูลที่สำคัญ")
-        st.success(
-            """
-        * $p \\rightarrow q \\equiv \\neg p \\vee q$
-        * $\\neg(p \\wedge q) \\equiv \\neg p \\vee \\neg q$
-        * $\\neg(p \\vee q) \\equiv \\neg p \\wedge \\neg q$
-        * $p \\leftrightarrow q \\equiv (p \\rightarrow q) \\wedge (q \\rightarrow p)$
-        * $\\neg(p \\rightarrow q) \\equiv p \\wedge \\neg q$
-        """
-        )
-
-    with col_b:
-        st.markdown("### ⚖️ กฎการอ้างเหตุผลยอดฮิต")
-        st.info(
-            """
-        * **Modus Ponens:** $p \\rightarrow q, p \\vdash q$
-        * **Modus Tollens:** $p \\rightarrow q, \\neg q \\vdash \\neg p$
-        * **Hypothetical Syllogism:** $p \\rightarrow q, q \\rightarrow r \\vdash p \\rightarrow r$
-        * **Disjunctive Syllogism:** $p \\vee q, \\neg p \\vdash q$
-        """
-        )
-
-    st.markdown("---")
-    st.markdown("### 🔍 สมมูลของตัวบ่งปริมาณ")
-    st.warning(
-        """
-    * $\\neg \\forall x P(x) \\equiv \\exists x \\neg P(x)$
-    * $\\neg \\exists x P(x) \\equiv \\forall x \neg P(x)$
-    """
+    <div class="card">
+    <h4>💡 หน้ารวมสูตรฉบับพกพา สำหรับเปิดดูทบทวนด่วนขณะทำโจทย์</h4>
+    <hr>
+    <p><b>1. สมบัติและการสมมูลสำคัญ:</b><br>
+    • $P \rightarrow Q \equiv \sim P \vee Q$[span_30](start_span)[span_30](end_span)<br>
+    • $\sim(P \wedge Q) \equiv \sim P \vee \sim Q$[span_31](start_span)[span_31](end_span)<br>
+    • $\sim(P \vee Q) \equiv \sim P \wedge \sim Q$[span_32](start_span)[span_32](end_span)<br>
+    • $P \leftrightarrow Q \equiv (P \rightarrow Q) \wedge (Q \rightarrow P)$[span_33](start_span)[span_33](end_span)</p>
+    
+    <p><b>2. กฎการอ้างเหตุผล:</b><br>
+    • <b>Modus Ponens:</b> $P \rightarrow Q, P \vdash Q$[span_34](start_span)[span_34](end_span)<br>
+    • <b>Modus Tollens:</b> $P \rightarrow Q, \sim Q \vdash \sim P$[span_35](start_span)[span_35](end_span)<br>
+    • <b>Hypothetical Syllogism:</b> $P \rightarrow Q, Q \rightarrow R \vdash P \rightarrow R$[span_36](start_span)[span_36](end_span)</p>
+    
+    <p><b>3. นิเสธตัวบ่งปริมาณ:</b><br>
+    • $\sim \forall x P(x) \equiv \exists x \sim P(x)$[span_37](start_span)[span_37](end_span)<br>
+    • $\sim \exists x P(x) \equiv \forall x \sim P(x)$[span_38](start_span)[span_38](end_span)</p>
+    </div>
+    """,
+        unsafe_allow_html=True,
     )
